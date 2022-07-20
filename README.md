@@ -12,4 +12,4 @@
 
 
 ## Usage
-* Run main.cpp in the terminal to start.
+* Run start.cpp in the terminal to start the program.
