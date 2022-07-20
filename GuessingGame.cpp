@@ -2,6 +2,8 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include "CreditCard.cpp"
+
 using namespace std;
 void rules();
 
@@ -57,7 +59,7 @@ int GuessingGame()
 
         if (dice == guess)
         {
-            cout << "\n\nYou have won Rs." << bettingAmount * 10;
+            cout << "\n\nYou have won $" << bettingAmount * 10;
             balance = balance + bettingAmount * 10;
         }
         else
@@ -72,8 +74,10 @@ int GuessingGame()
         if (balance == 0)
         {
             cout << "You have no money to play.\n";
-            cout << "You can use credit card to add more fund.\n";
-            break;
+            cout << "You can use credit card to add more fund.\n\n";
+            CreditCard();
+            cout << "Cash available to use $" << cash << "\n";
+            balance = cash;
         }
 
         cout << "\n\n--> Do you want to play again (y/n)? ";

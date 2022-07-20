@@ -6,28 +6,35 @@
 #include <iomanip>
 #include <fstream>
 #include "GuessingGame.cpp"
+#include "HotelManagement.cpp"
 using namespace std;
 
 int Selection()
 {
-    string coutLine(10, '=');
+    system("clear");
     int choice;
-    cout << "\n\t\t" << coutLine << "Select a game you want to play" << coutLine;
-    cout << "\n\nType 1 to play Casino Game\n";
-    cout << setw(26) << right << "2 to play Snake Game\n";
+    bool repeat = true;
+    while(repeat){
+    cout << "\n\n\t\t\t " << setw(25) << right << "Select one to play";
+    cout << "\n\t\t\t 1. Casino Game";
+    cout << "\n\t\t\t 2. Hotel Management Simulation";
+    cout << "\n\t\t\t Enter here: ";
     cin >> choice;
 
     if (choice == 1)
     {
+        repeat = false;
         GuessingGame();
     }
     else if (choice == 2)
     {
-        cout << "Picked 2";
+        repeat = false;
+        Hotel_Management();
     }
     else{
-        cout << "\n\tInvalid input.Please try again.\n";
-        Selection();
+        cout << "\n\t\t\t Invalid input. Please try again.";
+    }
+    
     }
 
     return 0;
