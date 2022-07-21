@@ -8,7 +8,7 @@
 * Pointers
 * Loop
 * Functions
-* If Else Statement
+* If-Else Statement
 * Switch
 * Classes
 * File handling
