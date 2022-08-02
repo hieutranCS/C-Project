@@ -24,16 +24,24 @@ public:
     void login();
     void delete_user();
     void display();
+    void skipLine();
     void check(char *, int &);
 
 } u;
 
+void USER::skipLine()
+{
+    cout << "\n\n\t\t\t Press enter to continue.";
+    getchar();
+    getchar();
+}
+
 void USER::main_menu()
 {
-    int choice;
-    while (choice != 5)
+    string choice;
+    while (choice != "5")
     {
-        cout << "\n\t\t\t ========WELCOME TO THE C++ WORLD=======";
+        cout << "\n\n\t\t\t ========WELCOME TO THE C++ WORLD=======";
         cout << "\n\t\t\t 1:Register";
         cout << "\n\t\t\t 2:Login";
         cout << "\n\t\t\t 3:Display";
@@ -42,28 +50,32 @@ void USER::main_menu()
         cout << "\n\t\t\t Enter here: ";
         cin >> choice;
 
-        switch (choice)
+        if (choice == "1")
         {
-        case 1:
             user_register();
-            break;
-        case 2:
-            login();
-            break;
-        case 3:
-            display();
-            break;
-        case 4:
-            delete_user();
-            break;
-        case 5:
-            return;
-        default:
-        {
-            cout << "\n\n\t\t\t Invalid input.";
-            cout << "\n\t\t\t Press enter to continue.";
-            getchar();
         }
+        else if (choice == "2")
+        {
+            login();
+        }
+        else if (choice == "3")
+        {
+            display();
+        }
+        else if (choice == "4")
+        {
+            delete_user();
+        }
+        else if (choice == "5")
+        {
+            cout << "\n\t\t\t Exit.";
+            skipLine();
+            return;
+        }
+        else
+        {
+            cout << "\n\t\t\t Invalid input.";
+            skipLine();
         }
     }
 }
@@ -73,7 +85,7 @@ void USER::user_register()
     system("clear");
     int check_username;
     char temp_username[50];
-    ofstream fout("Users.DAT", ios::app | ios::binary);
+    ofstream fout("Users.txt", ios::app | ios::binary);
 
     cout << "\n\t\t\t Username: ";
     cin >> temp_username;
@@ -94,15 +106,13 @@ void USER::user_register()
     {
         cout << "\n\t\t\t Username already taken.";
     }
-    cout << "\n\t\t\t Press any key to continue.";
-    getchar();
-    getchar();
+    skipLine();
     fout.close();
 }
 
 void USER::check(char *temp_username, int &check_username)
 {
-    ifstream fin("Users.DAT", ios::in | ios::binary);
+    ifstream fin("Users.txt", ios::in | ios::binary);
     while (fin.read((char *)this, sizeof(USER)))
     {
         if (strcmp(username, temp_username) == 0)
@@ -113,7 +123,6 @@ void USER::check(char *temp_username, int &check_username)
         else
         {
             check_username = 0;
-            break;
         }
     }
     fin.close();
@@ -122,53 +131,56 @@ void USER::check(char *temp_username, int &check_username)
 void USER::login()
 {
     long pos;
-	fstream file("Users.DAT", ios::in | ios::out | ios::binary);
+    ifstream fin("Users.txt", ios::in | ios::binary);
     char temp_username[50];
     char temp_password[50];
-
+    string temp_login = "0";
     cout << "\n\t\t\t Enter username: ";
     cin >> temp_username;
     cout << "\n\t\t\t Enter password: ";
     cin >> temp_password;
 
-	while (!file.eof())
-	{
-		pos = file.tellg();
-		file.read((char *)this, sizeof(USER));
-		if (strcmp(username, temp_username) == 0)
+    while (!fin.eof())
+    {
+        while (fin.read((char *)this, sizeof(USER)))
         {
-            if(strcmp(password, temp_password) == 0){
-                cout << "\n\t\t\t Login Success!";
-                cout << "\n\n\t\t\t Press enter to continue.";
-	            getchar();
-	            getchar();
-                Selection();
-                break;
+            if (strcmp(username, temp_username) == 0)
+            {
+                if (strcmp(password, temp_password) == 0)
+                {
+                    temp_login = "1";
+                    break;
+                }
+                else{
+                    temp_login = "2";
+                }
             }
-            else {
-                cout << "\n\t\t\t Invalid Password.";
-                break;
-            }
-            
         }
-        else
-        {
-            cout << "\n\t\t\t Invalid Username.";
-            break;
-        }
-	}
-
-	cout << "\n\n\t\t\t Press enter to continue.";
-	getchar();
-	getchar();
-	file.close();
+    }
+    fin.close();
+    if (temp_login == "0")
+    {
+        cout << "\n\t\t\t Invalid Username.";
+        skipLine();
+    }
+    else if (temp_login == "2")
+    {
+        cout << "\n\t\t\t Invalid Password.";
+        skipLine();
+    }
+    else if (temp_login == "1")
+    {
+        cout << "\n\t\t\t Login Success!";
+        skipLine();
+        Selection();
+    }
 }
 
 void USER::display()
 {
 
     system("clear");
-    ifstream fin("Users.DAT", ios::in | ios::binary);
+    ifstream fin("Users.txt", ios::in | ios::binary);
 
     while (fin.read((char *)this, sizeof(USER)))
     {
@@ -177,59 +189,59 @@ void USER::display()
         cout << "\n\t\t\t Password: " << password;
     }
     fin.close();
-    cout << "\n\t\t\t Press enter to continue.";
-    getchar();
-    getchar();
+    skipLine();
     
 }
 
 void USER::delete_user()
 {
-    
-	char temp_username[50];
-    char ch;
+
+    char temp_username[50];
+    string ch;
     int flag = 0;
     cout << "\n\t\t\t Enter username: ";
     cin >> temp_username;
 
-	ifstream fin("Users.DAT", ios::in | ios::binary);
-	ofstream fout("Users_temp.DAT", ios::out | ios::binary);
-	while (fin.read((char *)this, sizeof(USER)))
-	{
-		if (strcmp(username, temp_username) == 0)
+    ifstream fin("Users.txt", ios::in | ios::binary);
+    ofstream fout("Users_temp.txt", ios::out | ios::binary);
+    while (fin.read((char *)this, sizeof(USER)))
+    {
+        if (strcmp(username, temp_username) == 0)
         {
-			cout << "\n\n\t\t\t Name: " << name;
+            cout << "\n\n\t\t\t Name: " << name;
             cout << "\n\t\t\t Username: " << username;
             cout << "\n\t\t\t Password: " << password;
-			cout << "\n\n\t\t\t Press y to delete or n to exit: ";
-			cin >> ch;
-			if (ch == 'n')
-			{
-				fout.write((char *)this, sizeof(USER));
-			}
-			else
-			{
-				cout << "\n\t\t\t User Deleted.";
-			}
-			flag = 1;
-		}
-		else
-		{
-			fout.write((char *)this, sizeof(USER));
-		}
-	}
-	fin.close();
-	fout.close();
-	if (flag == 0)
-		cout << "\n\t\t\t User not found.";
-	else
-	{
-		remove("Users.dat");
-		rename("Users_temp.dat", "Users.dat");
-	}
-	cout << "\n\n\t\t\t Press enter to continue.";
-	getchar();
-	getchar();
+            cout << "\n\n\t\t\t 1.Delete";
+            cout << "\n\t\t\t 2.Exit";
+            cout << "\n\t\t\t Enter here: ";
+            cin >> ch;
+            if (ch == "1")
+            {
+                cout << "\n\t\t\t User Deleted.";
+            }
+            else
+            {
+                fout.write((char *)this, sizeof(USER));
+            }
+            flag = 1;
+        }
+        else
+        {
+            fout.write((char *)this, sizeof(USER));
+        }
+    }
+    fin.close();
+    fout.close();
+    if (flag == 0){
+        cout << "\n\t\t\t User not found.";
+        remove("Users_temp.txt");
+    }
+    else
+    {
+        remove("Users.txt");
+        rename("Users_temp.txt", "Users.txt");
+    }
+    skipLine();
 }
 
 int main()

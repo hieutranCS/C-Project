@@ -5,36 +5,45 @@
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
-#include "GuessingGame.cpp"
 #include "HotelManagement.cpp"
+#include "EmployeeManagement.cpp"
 using namespace std;
 
 int Selection()
 {
     system("clear");
-    int choice;
-    bool repeat = true;
-    while(repeat){
-    cout << "\n\n\t\t\t " << setw(25) << right << "Select one to play";
-    cout << "\n\t\t\t 1. Casino Game";
-    cout << "\n\t\t\t 2. Hotel Management Simulation";
-    cout << "\n\t\t\t Enter here: ";
-    cin >> choice;
+    string choice;
 
-    if (choice == 1)
+    while (choice != "4")
     {
-        repeat = false;
-        GuessingGame();
-    }
-    else if (choice == 2)
-    {
-        repeat = false;
-        Hotel_Management();
-    }
-    else{
-        cout << "\n\t\t\t Invalid input. Please try again.";
-    }
-    
+        cout << "\n\n\t\t\t " << setw(25) << right << "Select one to play";
+        cout << "\n\t\t\t 1. NULL";
+        cout << "\n\t\t\t 2. Hotel Management Simulation";
+        cout << "\n\t\t\t 3. Employee Management Simulation";
+        cout << "\n\t\t\t 4. Exit";
+        cout << "\n\t\t\t Enter here: ";
+        cin >> choice;
+
+        if (choice == "1")
+        {
+        }
+        else if (choice == "2")
+        {
+            Hotel_Management();
+        }
+        else if (choice == "3")
+        {
+            Employee_Management();
+        }
+        else if (choice == "4")
+        {
+            cout << "\n\t\t\t Exit";
+            break;
+        }
+        else
+        {
+            cout << "\n\t\t\t Invalid input.";
+        }
     }
 
     return 0;
