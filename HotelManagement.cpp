@@ -311,10 +311,10 @@ void HOTEL::edit_customer()
 void HOTEL::modify_customer_info()
 {
 	system("clear");
-	string choice;
+	string choice, room;
 	while (choice != "5")
 	{
-		int room;
+
 		cout << "\n\t\t\t\t EDIT MENU";
 		cout << "\n\t\t\t 1. Edit Name";
 		cout << "\n\t\t\t 2. Edit Address";
@@ -337,25 +337,74 @@ void HOTEL::modify_customer_info()
 				{
 					cout << "\n\t\t\t Enter Room Number: ";
 					cin >> room;
-					modify_name(room);
+					for (auto it : room)
+					{
+						if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+						{
+							cout << "\n\t\t\t Invalid Input.\n";
+							break;
+						}
+						else
+						{
+							int temp_room = stoi(room);
+							modify_name(temp_room);
+						}
+					}
 				}
 				else if (choice == "2")
 				{
 					cout << "\n\t\t\t Enter Room Number: ";
 					cin >> room;
-					modify_address(room);
+					for (auto it : room)
+					{
+						if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+						{
+							cout << "\n\t\t\t Invalid Input.\n";
+							break;
+						}
+						else
+						{
+							int temp_room = stoi(room);
+							modify_address(temp_room);
+						}
+					}
 				}
 				else if (choice == "3")
 				{
 					cout << "\n\t\t\t Enter Room Number: ";
 					cin >> room;
-					modify_phone(room);
+					for (auto it : room)
+					{
+						if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+						{
+							cout << "\n\t\t\t Invalid Input.\n";
+							break;
+						}
+						else
+						{
+							int temp_room = stoi(room);
+							modify_phone(temp_room);
+						}
+					}
 				}
 				else if (choice == "4")
 				{
+
 					cout << "\n\t\t\t Enter Room Number: ";
 					cin >> room;
-					modify_days(room);
+					for (auto it : room)
+					{
+						if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+						{
+							cout << "\n\t\t\t Invalid Input.\n";
+							break;
+						}
+						else
+						{
+							int temp_room = stoi(room);
+							modify_days(temp_room);
+						}
+					}
 				}
 				else if (choice == "5")
 				{
@@ -472,8 +521,9 @@ void HOTEL::modify_phone(int r)
 void HOTEL::modify_days(int r)
 {
 	long pos, newDays;
+	string temp_day;
 	booked = 0;
-	int temp_cost = 0, temp_day = 0;
+	int temp_cost = 0;
 	string temp_type;
 	fstream file("Record.DAT", ios::in | ios::out | ios::binary);
 	while (!file.eof())
@@ -483,19 +533,32 @@ void HOTEL::modify_days(int r)
 		if (room_number == r)
 		{
 			cout << "\n\t\t\t Add more Days to Stay: ";
-			cin >> newDays;
+			cin >> temp_day;
 
-			modify_day(room_number, temp_cost, newDays, temp_type);
-			cost += temp_cost;
-			days += newDays;
-			const char *c_type = temp_type.c_str();
-			strcpy(room_type, c_type);
+			for (auto it : temp_day)
+			{
+				if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+				{
+					cout << "\n\t\t\t Invalid Day.";
+					booked = 2;
+					break;
+				}
+				else
+				{
+					newDays = stoi(temp_day);
+					modify_day(room_number, temp_cost, newDays, temp_type);
+					cost += temp_cost;
+					days += newDays;
+					const char *c_type = temp_type.c_str();
+					strcpy(room_type, c_type);
 
-			file.seekg(pos);
-			file.write((char *)this, sizeof(HOTEL));
-			cout << "\n\t\t\t Customer Days has been modified.\n";
-			booked = 1;
-			break;
+					file.seekg(pos);
+					file.write((char *)this, sizeof(HOTEL));
+					cout << "\n\t\t\t Customer Days has been modified.\n";
+					booked = 1;
+					break;
+				}
+			}
 		}
 	}
 	if (booked == 0)
