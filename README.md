@@ -24,6 +24,7 @@
 * Register/Delete User
 * Hotel Management with CRUD operations
 * Employee Management with CRUD operations
+* Bank Management with CRUD operations
 
 ---
 
