@@ -59,7 +59,6 @@ void main_menu_cout(){
 		cout << "\n\t\t\t 2. Customer Information";
 		cout << "\n\t\t\t 3. Rooms Allotted";
 		cout << "\n\t\t\t 4. Edit Customer Details";
-		cout << "\n\t\t\t 5. Order Food";
-		cout << "\n\t\t\t 6. Exit";
+		cout << "\n\t\t\t 5. Exit";
 		cout << "\n\n\t\t\t Enter here: "; 
 } 

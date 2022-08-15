@@ -95,7 +95,7 @@ void checkEmployee(string temp_id, string temp_fn, string pos, bool &user_valid)
     user *tmp = map_user[temp_id];
     if (tmp == NULL)
     {
-        cout << "\n\t\t\t ID not in database." << endl;
+        cout << "\n\t\t\t ID Not In Database." << endl;
         skipLine();
         return;
     }

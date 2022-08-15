@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <fstream>
 #include "HotelManagement.cpp"
+#include "BankManagement.cpp"
 #include "EmployeeManagement.cpp"
 using namespace std;
 
@@ -16,16 +17,17 @@ int Selection()
 
     while (choice != "4")
     {
-        cout << "\n\n\t\t\t " << setw(25) << right << "Select one to play";
-        cout << "\n\t\t\t 1. NULL";
-        cout << "\n\t\t\t 2. Hotel Management Simulation";
-        cout << "\n\t\t\t 3. Employee Management Simulation";
+        cout << "\n\n\t\t\t " << setw(25) << right << "Select one";
+        cout << "\n\t\t\t 1. Bank Management";
+        cout << "\n\t\t\t 2. Hotel Management";
+        cout << "\n\t\t\t 3. Employee Management";
         cout << "\n\t\t\t 4. Exit";
         cout << "\n\t\t\t Enter here: ";
         cin >> choice;
 
         if (choice == "1")
         {
+            Bank_Management();
         }
         else if (choice == "2")
         {

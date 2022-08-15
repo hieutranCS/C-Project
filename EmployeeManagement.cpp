@@ -17,6 +17,17 @@ using namespace std;
 // Brena,Ashok,556,75,Brena.Ashok@cplusplus.com,female
 // test,test1,2342,34,er@gma,male
 
+void checkString(string &check)
+{
+    for (auto it : check)
+    {
+        if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
+        {
+            check = "0";
+        }
+    }
+}
+
 void add()
 {
     system("clear");
@@ -52,24 +63,21 @@ void add()
         return;
     }
 
-    for (auto it : ag)
+    checkString(ag);
+    if (ag == "0")
     {
-        if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
-        {
-            cout << "\n\t\t\t Invalid Age.";
-            skipLine();
-            return;
-        }
+        cout << "\n\t\t\t Invalid Age.";
+
+        skipLine();
+        return;
     }
 
-    for (auto it : user_id)
+    checkString(user_id);
+    if (user_id == "0")
     {
-        if ((it >= 'a' && it <= 'z') || (it >= 'A' && it <= 'Z'))
-        {
-            cout << "\n\t\t\t Invalid ID.";
-            skipLine();
-            return;
-        }
+        cout << "\n\t\t\t Invalid ID.";
+        skipLine();
+        return;
     }
 
     age = stoi(ag);
@@ -215,7 +223,6 @@ void remove()
     cout << "\n\t\t\t Enter Employee ID: ";
     string temp_id, choice;
     cin >> temp_id;
-    cout << endl;
     user *tmp = map_user[temp_id];
 
     if (tmp != NULL)
@@ -484,6 +491,7 @@ void main_menu()
 
 int Employee_Management()
 {
+    system("clear");
     retrieve_data();
     main_menu();
     return 0;

@@ -83,7 +83,7 @@ void USER::main_menu()
 void USER::user_register()
 {
     system("clear");
-    int check_username;
+    int check_username = 0;
     char temp_username[50];
     ofstream fout("Users.txt", ios::app | ios::binary);
 
@@ -119,10 +119,6 @@ void USER::check(char *temp_username, int &check_username)
         {
             check_username = 1;
             break;
-        }
-        else
-        {
-            check_username = 0;
         }
     }
     fin.close();
